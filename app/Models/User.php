@@ -17,11 +17,7 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    protected $guarded = [];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -29,16 +25,19 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        'password',
-        'remember_token',
+        'access_token',
     ];
 
     /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo|Country
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
+    }
+
+    public function children()
+    {
+        return $this->hasMany(Child::class);
+    }
 }

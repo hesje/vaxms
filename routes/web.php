@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Child;
 use Illuminate\Support\Facades\Route;
 
 
@@ -19,3 +20,9 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/dashboard', \App\Http\Livewire\Parent\Overview::class)->name('parent-dashboard');
+
+Route::get('/test', function (){
+    $child = Child::first();
+
+    \App\Jobs\SendVaccinationNotification::dispatch($child);
+});

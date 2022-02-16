@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Models\Child;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -9,7 +10,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-class FindUpcomingVaccinations implements ShouldQueue
+class DispatchVaccinationMessageJobs implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -18,10 +19,7 @@ class FindUpcomingVaccinations implements ShouldQueue
      *
      * @return void
      */
-    public function __construct()
-    {
-        //
-    }
+    public function __construct(){}
 
     /**
      * Execute the job.
@@ -30,6 +28,10 @@ class FindUpcomingVaccinations implements ShouldQueue
      */
     public function handle()
     {
-        //
+        $children = Child::all();
+
+        foreach ($children as $child) {
+            SendVaccinationNotification::dispatch($child);
+        }
     }
 }
