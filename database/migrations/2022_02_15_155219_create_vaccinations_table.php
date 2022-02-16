@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('vaccinations', function (Blueprint $vaccinations) {
             $vaccinations->id();
             $vaccinations->string("name");
-            $vaccinations->integer("age_at_administration");
+            $vaccinations->integer("age_at_administration")->comment("Age in months");
             $vaccinations->timestamps();
         });
     }

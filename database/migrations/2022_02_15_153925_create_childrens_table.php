@@ -13,11 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('children', function (Blueprint $children) {
-            $children->id("id");
-            $children->date("dob");
-            $children->foreignIdFor(\App\Models\Parents::class);
-            $children->timestamps();
+        Schema::create('children', function (Blueprint $table) {
+            $table->id("id");
+            $table->string("name");
+            $table->date("dob");
+            $table->foreignIdFor(\App\Models\User::class);
+            $table->timestamps();
         });
     }
 
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('childrens');
+        Schema::dropIfExists('children');
     }
 };

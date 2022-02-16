@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Vaccinations;
+use App\Models\Vaccination;
 use App\Http\Requests\StoreVaccinationsRequest;
 use App\Http\Requests\UpdateVaccinationsRequest;
 
@@ -42,10 +42,10 @@ class VaccinationsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Vaccinations  $vaccinations
+     * @param  \App\Models\Vaccination  $vaccinations
      * @return \Illuminate\Http\Response
      */
-    public function show(Vaccinations $vaccinations)
+    public function show(Vaccination $vaccinations)
     {
         //
     }
@@ -53,10 +53,10 @@ class VaccinationsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Vaccinations  $vaccinations
+     * @param  \App\Models\Vaccination  $vaccinations
      * @return \Illuminate\Http\Response
      */
-    public function edit(Vaccinations $vaccinations)
+    public function edit(Vaccination $vaccinations)
     {
         //
     }
@@ -65,10 +65,10 @@ class VaccinationsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \App\Http\Requests\UpdateVaccinationsRequest  $request
-     * @param  \App\Models\Vaccinations  $vaccinations
+     * @param  \App\Models\Vaccination  $vaccinations
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateVaccinationsRequest $request, Vaccinations $vaccinations)
+    public function update(UpdateVaccinationsRequest $request, Vaccination $vaccinations)
     {
         //
     }
@@ -76,10 +76,10 @@ class VaccinationsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Vaccinations  $vaccinations
+     * @param  \App\Models\Vaccination  $vaccinations
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Vaccinations $vaccinations)
+    public function destroy(Vaccination $vaccinations)
     {
         //
     }

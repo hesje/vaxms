@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Parents;
-use App\Http\Requests\StoreParentsRequest;
-use App\Http\Requests\UpdateParentsRequest;
+use App\Models\Country;
+use App\Http\Requests\StoreCountryRequest;
+use App\Http\Requests\UpdateCountryRequest;
 
-class ParentsController extends Controller
+class CountryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -31,10 +31,10 @@ class ParentsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreParentsRequest  $request
+     * @param  \App\Http\Requests\StoreCountryRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreParentsRequest $request)
+    public function store(StoreCountryRequest $request)
     {
         //
     }
@@ -42,10 +42,10 @@ class ParentsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Parents  $parents
+     * @param  \App\Models\Country  $country
      * @return \Illuminate\Http\Response
      */
-    public function show(Parents $parents)
+    public function show(Country $country)
     {
         //
     }
@@ -53,10 +53,10 @@ class ParentsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Parents  $parents
+     * @param  \App\Models\Country  $country
      * @return \Illuminate\Http\Response
      */
-    public function edit(Parents $parents)
+    public function edit(Country $country)
     {
         //
     }
@@ -64,11 +64,11 @@ class ParentsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateParentsRequest  $request
-     * @param  \App\Models\Parents  $parents
+     * @param  \App\Http\Requests\UpdateCountryRequest  $request
+     * @param  \App\Models\Country  $country
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateParentsRequest $request, Parents $parents)
+    public function update(UpdateCountryRequest $request, Country $country)
     {
         //
     }
@@ -76,10 +76,10 @@ class ParentsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Parents  $parents
+     * @param  \App\Models\Country  $country
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Parents $parents)
+    public function destroy(Country $country)
     {
         //
     }

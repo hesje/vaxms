@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Children;
+use App\Models\Child;
 use App\Http\Requests\StoreChildrenRequest;
 use App\Http\Requests\UpdateChildrenRequest;
 
@@ -42,10 +42,10 @@ class ChildrenController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Children  $children
+     * @param  \App\Models\Child  $children
      * @return \Illuminate\Http\Response
      */
-    public function show(Children $children)
+    public function show(Child $children)
     {
         //
     }
@@ -53,10 +53,10 @@ class ChildrenController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Children  $children
+     * @param  \App\Models\Child  $children
      * @return \Illuminate\Http\Response
      */
-    public function edit(Children $children)
+    public function edit(Child $children)
     {
         //
     }
@@ -65,10 +65,10 @@ class ChildrenController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \App\Http\Requests\UpdateChildrenRequest  $request
-     * @param  \App\Models\Children  $children
+     * @param  \App\Models\Child  $children
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateChildrenRequest $request, Children $children)
+    public function update(UpdateChildrenRequest $request, Child $children)
     {
         //
     }
@@ -76,10 +76,10 @@ class ChildrenController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Children  $children
+     * @param  \App\Models\Child  $children
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Children $children)
+    public function destroy(Child $children)
     {
         //
     }
