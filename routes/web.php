@@ -16,4 +16,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
+
+Route::get('/dashboard', \App\Http\Livewire\Parent\Overview::class)->name('parent-dashboard');
