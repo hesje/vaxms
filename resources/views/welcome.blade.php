@@ -17,8 +17,9 @@
 
         <x-box title="Available in">
             <ul class="list-disc pl-5">
-                <li>Botswana</li>
-                <li>Equator</li>
+                @foreach(\App\Models\Country::all() as $country)
+                    <li>{{ $country->name }}</li>
+                @endforeach
             </ul>
         </x-box>
 

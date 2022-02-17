@@ -2,6 +2,7 @@
 
 namespace App\Http\TelegramCommands;
 
+use App\Models\User;
 use Illuminate\Support\Facades\Log;
 use Telegram\Bot\Actions;
 use Telegram\Bot\Commands\Command;
@@ -28,12 +29,24 @@ class AddChildCommand extends Command
      */
     public function handle()
     {
-        $resp = 'bla ' . $this->getArguments()['dob'];
+        try {
+            $user = User::query()
+                ->where('chat_id', $this->update->getChat()->id)
+                ->sole();
 
-        Log::debug('Message stuff: ', [$this->update->getChat()->id, $this->update->getChat()->username]);
+            $user->children()->create([
+                'name' => $this->getArguments()['name'],
+                'dob' => $this->getArguments()['dob'],
+            ]);
 
-        // TODO: Insert logic to add Child to DB
+            $this->replyWithMessage(['text' => 'Done!']);
 
-        $this->replyWithMessage(['text' => $resp]);
+        } catch (\Throwable $e) {
+            try {
+                $this->replyWithMessage(['text' => 'Something went wrong :(']);
+            } catch (\Throwable $e) {}
+
+            Log::error($e->getMessage(), $e->getTrace());
+        }
     }
 }

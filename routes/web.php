@@ -1,6 +1,8 @@
 <?php
 
 use App\Models\Child;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 
@@ -20,6 +22,11 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/dashboard', \App\Http\Livewire\Parent\Overview::class)->name('parent-dashboard');
+
+Route::get('/login/{user_id}', function ($user_id){
+    Auth::login(User::find($user_id));
+    return redirect()->route('parent-dashboard');
+});
 
 Route::get('/test', function (){
     $child = Child::first();

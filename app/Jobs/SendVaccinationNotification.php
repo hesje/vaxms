@@ -37,13 +37,8 @@ class SendVaccinationNotification implements ShouldQueue
     {
         try {
             $chat_id = $this->child->parent()->sole()->chat_id;
-            $country = $this->child->parent()->sole()->country()->sole();
 
-            $vaccinations = $country
-                ->vaccinations()
-                ->where('age_at_administration', '>', $this->child->dob->monthsUntil(now())->count())
-                ->orderBy('age_at_administration', 'asc')
-                ->get();
+            $vaccinations = $this->child->vaccinations();
 
             Telegram::sendMessage([
                 'chat_id' => $chat_id,
