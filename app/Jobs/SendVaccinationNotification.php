@@ -9,6 +9,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 use Telegram;
 
 class SendVaccinationNotification implements ShouldQueue
@@ -34,18 +35,22 @@ class SendVaccinationNotification implements ShouldQueue
      */
     public function handle()
     {
-        $chat_id = $this->child->parent()->sole()->chat_id;
-        $country = $this->child->parent()->sole()->country()->sole();
+        try {
+            $chat_id = $this->child->parent()->sole()->chat_id;
+            $country = $this->child->parent()->sole()->country()->sole();
 
-        $vaccinations = $country
-            ->vaccinations()
-            ->where('age_at_administration', '>', $this->child->dob->monthsUntil(now())->count())
-            ->orderBy('age_at_administration', 'asc')
-            ->get();
+            $vaccinations = $country
+                ->vaccinations()
+                ->where('age_at_administration', '>', $this->child->dob->monthsUntil(now())->count())
+                ->orderBy('age_at_administration', 'asc')
+                ->get();
 
-        $response = Telegram::sendMessage([
-            'chat_id' => $chat_id,
-            'text' => $vaccinations->first()->name,
-        ]);
+            Telegram::sendMessage([
+                'chat_id' => $chat_id,
+                'text' => $vaccinations->first()->name,
+            ]);
+        } catch (\Throwable $e){
+            Log::error($e->getMessage(), $e->getTrace());
+        }
     }
 }
