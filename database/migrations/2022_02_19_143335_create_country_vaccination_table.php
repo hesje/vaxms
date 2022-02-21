@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('vaccinations', function (Blueprint $table) {
+        Schema::create('country_vaccination', function (Blueprint $table) {
             $table->id();
-            $table->string('acronym');
-            $table->string("name");
-            $table->timestamps();
+            $table->foreignIdFor(\App\Models\Country::class);
+            $table->foreignIdFor(\App\Models\Vaccination::class);
+            $table->integer('age_at_administration')->comment('age in weeks');
         });
     }
 
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vaccinations');
+        Schema::dropIfExists('country_vaccination');
     }
 };

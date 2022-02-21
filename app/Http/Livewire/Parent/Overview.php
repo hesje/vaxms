@@ -35,6 +35,8 @@ class Overview extends Component
     {
         $this->validate();
         Auth::user()->children()->save($this->creating);
+        $this->dispatchBrowserEvent('close-modal');
+        $this->creating = null;
     }
 
     public function rules()
@@ -48,17 +50,18 @@ class Overview extends Component
     public function confirmRemoval(Child $child)
     {
         $this->deleting = $child;
-        $child->dispatchBrowserEvent('confirmRemoval-child');
+        $this->dispatchBrowserEvent('confirm-removal-child');
     }
 
     public function removeChild()
     {
         $this->deleting->delete();
+        $this->closeModal();
     }
 
     public function closeModal()
     {
-        $deleting = null;
-        dispatchBrowserEvent('close-modal');
+        $this->deleting = null;
+        $this->dispatchBrowserEvent('close-modal');
     }
 }

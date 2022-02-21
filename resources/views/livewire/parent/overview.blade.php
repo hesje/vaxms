@@ -23,7 +23,9 @@
                         <td class="font-semibold text-red-500 cursor-pointer" wire:click="selectChild({{ $child->id }})">
                             {{ $child->name }}</td>
                         <td class="text-red-500">{{ $child->dob->monthsUntil(now())->count() }}</td>
-                        <td class="font-semibold text-red-500 cursor-pointer" wire:click="confirmRemoval()">x</td>
+                        <td class="font-semibold text-red-500 cursor-pointer" wire:click="confirmRemoval({{ $child->id }})">
+                            <x-icon.x />
+                        </td>
                     </tr>
                 @endforeach
                 </tbody>
@@ -43,7 +45,7 @@
                     @forelse($selected->vaccinations() as $vaccination)
                         <tr>
                             <td class="text-red-500">{{ $vaccination->name }}</td>
-                            <td class="text-red-500">{{ $vaccination->age_at_administration }}</td>
+                            <td class="text-red-500">{{ $vaccination->pivot->age_at_administration }}</td>
                         </tr>
                     @empty
                         <tr>
@@ -59,15 +61,19 @@
     </div>
 
     <x-modal on="add-child" title="Add Child">
-        <x-input.text wire:model.defer="creating.name">Name</x-input.text>
-        <x-input.text wire:model.defer="creating.dob">Date</x-input.text>
-        <x-button wire:click="saveChild">Save</x-button>
+        <div class="space-y-3">
+            <x-input.text wire:model.defer="creating.name">Name</x-input.text>
+            <x-input.text wire:model.defer="creating.dob">Date</x-input.text>
+            <div class="flex justify-end">
+                <x-button wire:click="saveChild">Save</x-button>
+            </div>
+        </div>
     </x-modal>
 
     @isset($deleting)
-        <x-modal on="confirmRemoval-child" title="Are you sure?">
+        <x-modal on="confirm-removal-child" title="Are you sure?">
             <p>Are you sure you want to unsubscribe {{ $deleting->name }}?</p>
-            <x-button wire:click="removeChild({{ $child->id }})">Yes</x-button>
+            <x-button wire:click="removeChild()">Yes</x-button>
             <x-button wire:click="closeModal">No</x-button>
         </x-modal>
     @endisset

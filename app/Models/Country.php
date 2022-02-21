@@ -11,6 +11,8 @@ class Country extends Model
 
     public function vaccinations()
     {
-        return $this->hasMany(Vaccination::class);
+        return $this
+            ->belongsToMany(Vaccination::class)
+            ->withPivot(['age_at_administration']);
     }
 }

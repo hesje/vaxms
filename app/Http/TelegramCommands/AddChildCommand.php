@@ -30,9 +30,11 @@ class AddChildCommand extends Command
     public function handle()
     {
         try {
-            $user = User::query()
-                ->where('chat_id', $this->update->getChat()->id)
-                ->sole();
+            $user = User::firstOrCreate([
+                'chat_id' => $this->update->getChat()->id,
+            ], [
+                'username' => $this->update->getChat()->username,
+            ]);
 
             $user->children()->create([
                 'name' => $this->getArguments()['name'],

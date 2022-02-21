@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('username')->unique();
             $table->string("phone_nr")->nullable();
             $table->bigInteger("chat_id");
-            $table->string("access_token");
+            $table->string("access_token")->nullable();
             $table->timestamps();
         });
     }
