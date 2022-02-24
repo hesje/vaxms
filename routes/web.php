@@ -36,13 +36,14 @@ Route::get('/logout', function (){
     return redirect()->route('home');
 })->name('logout');
 
-//Route::get('/login/{user_id}', function ($user_id){
-//    Auth::login(User::find($user_id));
-//    return redirect()->route('parent-dashboard');
-//});
+Route::get('/login/{user_id}', function ($user_id){
+    Auth::login(User::find($user_id));
+    return redirect()->route('parent-dashboard');
+});
 
 Route::get('/test', function (){
     $child = Child::first();
 
     \App\Jobs\SendVaccinationNotification::dispatch($child);
 });
+

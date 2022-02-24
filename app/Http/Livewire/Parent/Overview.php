@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Parent;
 
 use App\Models\Child;
+use App\Models\Vaccination;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -12,10 +13,15 @@ class Overview extends Component
     public ?Child $creating = null;
     public ?Child $deleting = null;
 
+    public Vaccination $selectedVax;
+    public ?Vaccination $creatingVax = null;
+    public ?Vaccination $deletingVax = null;
+
     public function render()
     {
         return view('livewire.parent.overview', [
             'children' => Auth::user()->children()->get(),
+            'country' => Auth::user()->country()->first(),
         ]);
     }
 
@@ -63,5 +69,35 @@ class Overview extends Component
     {
         $this->deleting = null;
         $this->dispatchBrowserEvent('close-modal');
+    }
+
+
+    ///////////////////////////////////////////////
+    public function addVaccination()
+    {
+        $this->creatingVax = new Vaccination();
+        $this->dispatchBrowserEvent('add-vaccination');
+    }
+
+    public function saveVaccination()
+    {
+        $this->validate();
+        Auth::user()->country()->vaccinations()->save($this->creatingVax);
+        $this->dispatchBrowserEvent('close-modal');
+        $this->creatingVax = null;
+    }
+
+
+
+    public function confirmRemovalVaccination(Vaccination $vaccination)
+    {
+        $this->deletingVax = $vaccination;
+        $this->dispatchBrowserEvent('confirm-removal-vaccination');
+    }
+
+    public function removeVaccination()
+    {
+        $this->deletingVax->delete();
+        $this->closeModal();
     }
 }
