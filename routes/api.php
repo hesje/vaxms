@@ -17,3 +17,15 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::post('/telegram/webhook', function () {
+    response(status: 200);
+
+    $update = Telegram::commandsHandler(true);
+
+    // Commands handler method returns an Update object.
+    // So you can further process $update object
+    // to however you want.
+
+//    return 'ok';
+});

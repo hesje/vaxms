@@ -13,10 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('password_resets', function (Blueprint $table) {
-            $table->string('email')->index();
-            $table->string('token');
-            $table->timestamp('created_at')->nullable();
+        Schema::create('country_vaccination', function (Blueprint $table) {
+            $table->id();
+            $table->foreignIdFor(\App\Models\Country::class);
+            $table->foreignIdFor(\App\Models\Vaccination::class);
+            $table->integer('age_at_administration')->comment('age in weeks');
         });
     }
 
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('password_resets');
+        Schema::dropIfExists('country_vaccination');
     }
 };
