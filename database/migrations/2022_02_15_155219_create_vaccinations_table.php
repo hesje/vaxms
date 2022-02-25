@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('vaccinations', function (Blueprint $table) {
             $table->id();
-            $table->string('acronym');
             $table->string("name");
             $table->timestamps();
         });

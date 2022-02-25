@@ -23,10 +23,16 @@ Route::get('/', function () {
 
 Route::get('/login', \App\Http\Livewire\Auth\Login::class)->name('login')->middleware('guest');
 
+Route::get('/testlocation', function (){
+    dd(getClientCountry());
+});
+
+Route::get('/my-ip', function (){
+    return request()->getClientIp();
+});
+
 Route::middleware('auth')->group(function (){
-
     Route::get('/dashboard', \App\Http\Livewire\Parent\Overview::class)->name('parent-dashboard');
-
 });
 
 Route::get('/logout', function (){
