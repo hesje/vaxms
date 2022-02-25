@@ -13,9 +13,7 @@ class Overview extends Component
     public ?Child $creating = null;
     public ?Child $deleting = null;
 
-    public Vaccination $selectedVax;
-    public ?Vaccination $creatingVax = null;
-    public ?Vaccination $deletingVax = null;
+
 
     public function render()
     {
@@ -71,33 +69,4 @@ class Overview extends Component
         $this->dispatchBrowserEvent('close-modal');
     }
 
-
-    ///////////////////////////////////////////////
-    public function addVaccination()
-    {
-        $this->creatingVax = new Vaccination();
-        $this->dispatchBrowserEvent('add-vaccination');
-    }
-
-    public function saveVaccination()
-    {
-        $this->validate();
-        Auth::user()->country()->vaccinations()->save($this->creatingVax);
-        $this->dispatchBrowserEvent('close-modal');
-        $this->creatingVax = null;
-    }
-
-
-
-    public function confirmRemovalVaccination(Vaccination $vaccination)
-    {
-        $this->deletingVax = $vaccination;
-        $this->dispatchBrowserEvent('confirm-removal-vaccination');
-    }
-
-    public function removeVaccination()
-    {
-        $this->deletingVax->delete();
-        $this->closeModal();
-    }
 }

@@ -29,6 +29,8 @@ Route::middleware('auth')->group(function (){
 
 });
 
+Route::get('/govdashboard', \App\Http\Livewire\Governmentworker\Overview::class)->name('governmentworker-dashboard');
+
 Route::get('/logout', function (){
     if (Auth::check()) {
         Auth::logout();
