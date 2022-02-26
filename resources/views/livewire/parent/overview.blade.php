@@ -58,6 +58,25 @@
             @endisset
         </div>
 
+        <x-box title="Vaccination overview in your country">
+            <table class="w-full table-auto">
+                <thead>
+                <tr class="border-b-2 border-red-500 font-bold">
+                    <td class="text-red-500">Name</td>
+                    <td class="text-red-500">Age at administration</td>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach($country->vaccinations()->get() as $vaccination)
+                    <tr>
+                        <td class="text-red-500">{{ $vaccination->acronym}}</td>
+                        <td class="text-red-500">{{ $vaccination->pivot->age_at_administration}}</td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        </x-box>
+
     </div>
 
     <x-modal on="add-child" title="Add Child">
@@ -77,5 +96,6 @@
             <x-button wire:click="closeModal">No</x-button>
         </x-modal>
     @endisset
-
 </div>
+
+

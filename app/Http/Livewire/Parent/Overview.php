@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Parent;
 
 use App\Models\Child;
+use App\Models\Vaccination;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -12,10 +13,13 @@ class Overview extends Component
     public ?Child $creating = null;
     public ?Child $deleting = null;
 
+
+
     public function render()
     {
         return view('livewire.parent.overview', [
             'children' => Auth::user()->children()->get(),
+            'country' => Auth::user()->country()->first(),
         ]);
     }
 
@@ -64,4 +68,5 @@ class Overview extends Component
         $this->deleting = null;
         $this->dispatchBrowserEvent('close-modal');
     }
+
 }
