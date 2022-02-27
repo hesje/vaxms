@@ -32,7 +32,6 @@
 
     <x-modal on="add-vaccination" title="Add Vaccination">
         <div class="space-y-3">
-            <x-input.text wire:model.defer="creatingVax.acronym">Acronym</x-input.text>
             <x-input.text wire:model.defer="creatingVax.name">Name</x-input.text>
             <x-input.text wire:model.defer="age">Age at administration (weeks)</x-input.text>
             <div class="flex justify-end">

@@ -20,13 +20,23 @@ class ProcessUpdate
             'conversation_status' => [],
         ]);
 
-        if ($u->wasRecentlyCreated) {
+        if ($u->wasRecentlyCreated
+            || str($update->getMessage()->text)->lower()->contains('start')
+            || str($update->getMessage()->text)->lower()->containsAll(['change', 'country'])
+        ) {
             $u->conversation_status['action'] = 'set_country';
+            $u->conversation_status['step'] = 0;
+            $u->save();
+        }
+
+        if (str($update->getMessage()->text)->lower()->contains('unsubscribe')) {
+
         }
 
         $actions = [
             'add_child' => AddChild::make(),
             'set_country' => SetCountry::make(),
+            'unsubscribe' => Unsubscribe::make()
         ];
 
         if (isset($u->conversation_status['action'])) {

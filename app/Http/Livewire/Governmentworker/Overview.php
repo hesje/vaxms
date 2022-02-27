@@ -24,7 +24,6 @@ class Overview extends Component
     public function rules()
     {
         return [
-            'creatingVax.acronym' => 'required|string|max:100|min:2',
             'creatingVax.name' => 'required|string|max:100|min:2',
             'age' => 'required|integer|max:100|min:2',
         ];
@@ -33,8 +32,6 @@ class Overview extends Component
     public function addVaccination()
     {
         $this->creatingVax = new Vaccination();
-        //Auth::user()->country()->sole()->vaccinations()->attach($this->creatingVax);
-        //Auth::user()->country()->sole()->vaccinations()->attach($this->creatingVax, ['age_at_administration'=> $this->age], ['vaccination_id' => $this->creatingVax] );
         $this->dispatchBrowserEvent('add-vaccination');
     }
 
