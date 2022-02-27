@@ -14,6 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::post('/telegram/webhook', function () {
+    try {
+        $update = Telegram::getWebhookUpdates();
+        \App\Actions\ProcessUpdate::run($update);
+    } catch (\Throwable $exception) {
+        \Illuminate\Support\Facades\Log::error($exception->getMessage(), $exception->getTrace());
+    }
+
+    return response('ok', 200);
 });
