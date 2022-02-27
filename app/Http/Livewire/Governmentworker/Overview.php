@@ -40,7 +40,7 @@ class Overview extends Component
     {
         $this->validate();
         $this->creatingVax->save();
-        Auth::user()->country()->first()->vaccinations()->attach($this->creatingVax, ['age_at_administration'=> $this->age]);
+        $this->country->vaccinations()->attach($this->creatingVax, ['age_at_administration'=> $this->age]);
         $this->dispatchBrowserEvent('close-modal');
         $this->creatingVax = null;
     }
