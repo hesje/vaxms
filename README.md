@@ -1,64 +1,64 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# VaxMS
+##### Improving Vaccination rates in rural areas and Developing countries
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Installation
+For development it is possible to run the application locally, but the application has been created to run on Heroku.
+Below you find an explanation for both.
 
-## About Laravel
+### Local installation
+To run the application locally, you will need to install PHP, [Composer](https://getcomposer.org) and a database such as
+MySQL or SQLite. On a Windows machine you may do this through XAMPP.
+The application has been tested and deployed on PHP 8.0.13. All the dependencies are installed by composer and the 
+composer.lock file ensures that the versions that are installed are compatible with the app as it has been developed.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+If you have PHP and composer installed, you can clone the repository into a local folder.
+```
+# go into the project folder
+cd vaxms
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+# install all dependencies using composer
+composer install
+```
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+In your favourite database system, create a database and fill in the credentials in the .env file.
+Next use Artisan to perform the database migrations belonging to the project.
+```
+php artisan migrate
 
-## Learning Laravel
+# Windows
+php artisan serve
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+# UNIX
+composer require laravel/valet
+valet install && valet link
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+The serve command will likely display localhost:8000 as the URL of the local application or if you use valet you should 
+be able to use vaxms.test. This URL can be used on the 
+local machine to view the application. However, when the Telegram functionalities for receiving messages is also desired
+the local environment will need to be exposed to the 'outside' internet (i.e. a tunnel). This can be done using ngrok
+or my personal favourite [Expose](https://expose.dev) by BeyondCode, for this you only need to run the `expose` command 
+in the project folder (if you have valet configured correctly) and you will automatically get temporary URL that can be 
+used. NB: you will need to edit the Telegram Webhook URL in the .env file every time the temporary URL changes.
 
-## Laravel Sponsors
+### Heroku
+Almost everything is ready to be deployed to heroku, you could even fork the repository and directly deploy the
+application from github. The procfile and the NginX configuration file will make sure that the web server is started, 
+the only thing you'll need to do is provision a Postgres DB server for the application using Heroku. All environment
+variables in the .env.example file need to be added to the 'Config Vars' section of the apps settings in Heroku.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+Use the Heroku [ps:scale command](https://devcenter.heroku.com/articles/heroku-cli-commands#heroku-ps-scale) to start
+the dyno that runs the web server. And with the `heroku run` command, run `php artisan migrate --force` such that the
+migrations are performed. (make sure that the Config Vars are set correctly to pgsql.)
 
-### Premium Partners
+### Schedule Worker
+If the scheduled vaccination messages are to be tested, you will need to add a cron job that performs the 
+`php artisan schedule:run` command every minute. In heroku this is most easily arranged by using the Cron To Go Add-On.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+Locally the worker can be started by running the `php artisan schedule:work` command. This will run indefinitely and
+does not need to be run manually every minute.
 
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Telegram
+A Telegram bot needs to be created before the Telegram functionality can be used. This can be done by messaging 
+@BotFather on Telegram and following the bot's instructions. A token is obtained which needs to be filled in, in the 
+.env file (example in .env.example). 
