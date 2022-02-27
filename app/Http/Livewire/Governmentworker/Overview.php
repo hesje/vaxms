@@ -2,13 +2,14 @@
 
 namespace App\Http\Livewire\Governmentworker;
 
+use App\Models\Country;
 use App\Models\Vaccination;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class Overview extends Component
 {
-
+    public Country $country;
     public Vaccination $selectedVax;
     public ?Vaccination $creatingVax = null;
     public ?Vaccination $deletingVax = null;
@@ -16,10 +17,8 @@ class Overview extends Component
 
     public function render()
     {
-        return view('livewire.governmentworker.overview', [
-           'country' => Auth::user()->country()->first(),
-        ]);
-
+        $this->country = Auth::check()? Auth::user()->country()->first() : Country::find(47);
+        return view('livewire.governmentworker.overview');
     }
 
     public function rules()
@@ -47,7 +46,6 @@ class Overview extends Component
         $this->dispatchBrowserEvent('close-modal');
         $this->creatingVax = null;
     }
-
 
     public function confirmRemovalVaccination(Vaccination $vaccination)
     {

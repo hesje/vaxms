@@ -10,7 +10,6 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
-use Telegram;
 
 class SendVaccinationNotification implements ShouldQueue
 {
@@ -36,14 +35,11 @@ class SendVaccinationNotification implements ShouldQueue
     public function handle()
     {
         try {
-            $chat_id = $this->child->parent()->sole()->chat_id;
-
             $vaccinations = $this->child->vaccinations();
 
-            Telegram::sendMessage([
-                'chat_id' => $chat_id,
-                'text' => $vaccinations->first()->name,
-            ]);
+            $this->child->parent->sendMessage(
+                __('') . $vaccinations->first()->name
+            );
         } catch (\Throwable $e){
             Log::error($e->getMessage(), $e->getTrace());
         }

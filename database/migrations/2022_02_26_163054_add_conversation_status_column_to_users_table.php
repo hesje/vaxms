@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('vaccinations', function (Blueprint $table) {
-            $table->dropConstrainedForeignId('country_id');
+        Schema::table('users', function (Blueprint $table) {
+            $table->json('conversation_status')->nullable();
         });
     }
 
@@ -25,8 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('vaccinations', function (Blueprint $table) {
-            $table->foreignIdFor(\App\Models\Country::class);
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn(['conversation_status']);
         });
     }
 };

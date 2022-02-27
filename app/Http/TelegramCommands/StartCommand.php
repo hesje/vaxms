@@ -32,5 +32,7 @@ class StartCommand extends Command
         $this->replyWithChatAction(['action' => Actions::TYPING]);
 
         $this->replyWithMessage(['text' => "This bot gives you reminders about vaccinations for your child."]);
+
+        $this->replyWithMessage(['text' => 'Tell me, what country are you from? \n Dites-moi, Vous venez d\'où?']);
     }
 }

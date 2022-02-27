@@ -47,7 +47,7 @@ class Child extends Model
         $country = $this->parent()->sole()->country()->sole();
         return $country
             ->vaccinations()
-            ->wherePivot('age_at_administration', '>', $this->ageInMonths)
+            ->wherePivot('age_at_administration', '>', $this->ageInWeeks)
             ->orderByPivot('age_at_administration', 'asc')
             ->get();
     }
