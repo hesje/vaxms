@@ -23,8 +23,9 @@ Route::get('/', function () {
 
 Route::get('/login', \App\Http\Livewire\Auth\Login::class)->name('login')->middleware('guest');
 
-Route::get('/testlocation', function (){
-    dd(getClientCountry());
+Route::get('/dispatch', function (){
+    \App\Jobs\DispatchVaccinationMessageJobs::dispatchSync();
+    return 'ok';
 });
 
 Route::get('/my-ip', function (){

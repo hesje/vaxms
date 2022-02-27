@@ -38,7 +38,9 @@ class SendVaccinationNotification implements ShouldQueue
             $vaccinations = $this->child->vaccinations();
 
             $this->child->parent->sendMessage(
-                __('') . $vaccinations->first()->name
+                'Hi, we just wanted to let you know that '
+                . $this->child->name . ' needs to get the '
+                . $vaccinations->first()->name . ' vaccination soon.',
             );
         } catch (\Throwable $e){
             Log::error($e->getMessage(), $e->getTrace());
