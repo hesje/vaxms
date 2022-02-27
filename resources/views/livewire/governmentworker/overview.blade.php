@@ -1,7 +1,7 @@
 <div>
     <h1  class="text-4xl text-red-500 py-2 font-bold pl-8">Goverment Worker Dashboard</h1>
 
-    <div class="grid grid-cols-2 gap-8">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <x-box title="Overview of vaccinations in {{ $country->name }}">
             <x-slot name="actions">
                 <div wire:click="addVaccination" class="text-red-500 cursor-pointer">
