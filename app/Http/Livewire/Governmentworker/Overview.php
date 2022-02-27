@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Governmentworker;
 use App\Models\Country;
 use App\Models\Vaccination;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class Overview extends Component
@@ -12,7 +13,7 @@ class Overview extends Component
     public Country $country;
     public Vaccination $selectedVax;
     public ?Vaccination $creatingVax = null;
-    public ?Vaccination $deletingVax = null;
+    public $deletingVax;
     public int $age = 0;
 
     public function render()
@@ -44,15 +45,15 @@ class Overview extends Component
         $this->creatingVax = null;
     }
 
-    public function confirmRemovalVaccination(Vaccination $vaccination)
+    public function confirmRemovalVaccination($pivot_id)
     {
-        $this->deletingVax = $vaccination;
+        $this->deletingVax = $pivot_id;
         $this->dispatchBrowserEvent('confirm-removal-vaccination');
     }
 
     public function removeVaccination()
     {
-        $this->deletingVax->delete();
+        DB::table('country_vaccination')->where('id', '=', $this->deletingVax)->delete();
         $this->closeModal();
     }
 

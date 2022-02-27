@@ -13,6 +13,6 @@ class Country extends Model
     {
         return $this
             ->belongsToMany(Vaccination::class)
-            ->withPivot(['age_at_administration']);
+            ->withPivot(['age_at_administration', 'id']);
     }
 }

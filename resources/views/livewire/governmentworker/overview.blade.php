@@ -22,7 +22,7 @@
                     <tr>
                         <td class="text-red-500">{{ $vaccination->name }}</td>
                         <td class="text-red-500">{{ $vaccination->pivot->age_at_administration }}</td>
-                        <td class="font-semibold text-red-500 cursor-pointer" wire:click="confirmRemovalVaccination({{ $vaccination->id }})"><x-icon.x /></td>
+                        <td class="font-semibold text-red-500 cursor-pointer" wire:click="confirmRemovalVaccination({{ $vaccination->pivot->id }})"><x-icon.x /></td>
                     </tr>
                 @endforeach
                 </tbody>
@@ -42,7 +42,7 @@
 
     @isset($deletingVax)
         <x-modal on="confirm-removal-vaccination" title="Are you sure?">
-            <p>Are you sure you want to remove {{ $deletingVax->acronym }}?</p>
+            <p>Are you sure you want to remove this vaccine?</p>
             <x-button wire:click="removeVaccination()">Yes</x-button>
             <x-button wire:click="closeModal">No</x-button>
         </x-modal>
