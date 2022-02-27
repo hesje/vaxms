@@ -14,7 +14,8 @@
                     <thead>
                         <tr class="border-b-2 border-red-500 font-bold">
                             <td class="text-red-500">Name</td>
-                            <td class="text-red-500">Months old</td>
+                            <td class="text-red-500">Age in weeks</td>
+                            <td class="text-red-500">Date of Birth</td>
                             <td class="text-red-500">Unsubscribe</td>
                         </tr>
                     </thead>
@@ -24,7 +25,8 @@
                             <td class="font-semibold text-red-500 cursor-pointer"
                                 wire:click="selectChild({{ $child->id }})">
                                 {{ $child->name }}</td>
-                            <td class="text-red-500">{{ $child->dob->monthsUntil(now())->count() }}</td>
+                            <td class="text-red-500">{{ $child->ageInWeeks }}</td>
+                            <td class="text-red-500">{{ $child->dob->isoFormat('ll') }}</td>
                             <td class="font-semibold text-red-500 cursor-pointer"
                                 wire:click="confirmRemoval({{ $child->id }})">
                                 <x-icon.x/>
