@@ -30,7 +30,8 @@ class ProcessUpdate
         }
 
         if (str($update->getMessage()->text)->lower()->contains('unsubscribe')) {
-
+            Unsubscribe::run($update, $u);
+            return;
         }
 
         $actions = [
